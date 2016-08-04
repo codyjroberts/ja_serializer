@@ -95,7 +95,9 @@ defmodule <%= module %>ControllerTest do
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    <%= singular %> = Repo.insert! %<%= alias %>{}
+    <%= singular %> = %<%= alias %>{}
+                      |> <%= alias %>.changeset(@valid_attrs)
+                      |> Repo.insert!
     conn = put conn, <%= singular %>_path(conn, :update, <%= singular %>), %{
       "meta" => %{},
       "data" => %{
